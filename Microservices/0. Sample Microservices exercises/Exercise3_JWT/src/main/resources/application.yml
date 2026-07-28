@@ -1,0 +1,4 @@
+app:
+  jwt:
+    # HS256 secret must be at least 256 bits (32+ chars) for jjwt 0.12.x
+    secret: my-super-secret-signing-key-that-is-long-enough-256bits

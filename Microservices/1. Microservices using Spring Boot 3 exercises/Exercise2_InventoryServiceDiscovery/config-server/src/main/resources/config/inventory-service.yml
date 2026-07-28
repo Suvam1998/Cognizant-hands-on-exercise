@@ -1,0 +1,4 @@
+# Centralized configuration for inventory-service (served by Config Server)
+inventory:
+  low-stock-threshold: 5
+  message: "Inventory configuration loaded from Config Server"

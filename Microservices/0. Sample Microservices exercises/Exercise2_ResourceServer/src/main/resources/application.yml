@@ -1,0 +1,15 @@
+# In production, use the issuer/jwk config below to fetch signing keys from
+# your authorization server:
+#
+# spring:
+#   security:
+#     oauth2:
+#       resourceserver:
+#         jwt:
+#           issuer-uri: https://issuer.example.com
+#
+# For this self-contained sample we validate tokens with a shared HS256 secret
+# (see ResourceServerConfig#jwtDecoder).
+app:
+  jwt:
+    secret: my-super-secret-signing-key-that-is-long-enough-256bits

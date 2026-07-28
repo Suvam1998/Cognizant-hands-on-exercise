@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      # Caching: cache successful GET responses locally (no Redis needed).
+      filter:
+        local-response-cache:
+          enabled: true
+          time-to-live: 30s
+          size: 5MB
+      routes:
+        # Path rewriting: /api/customers/** -> customer-service /customers/**
+        - id: customer_route
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/customers/**
+          filters:
+            - RewritePath=/api/customers/(?<segment>.*), /customers/${segment}
+
+        # Path rewriting: /api/billing/** -> billing-service /billing/**
+        - id: billing_route
+          uri: http://localhost:8086
+          predicates:
+            - Path=/api/billing/**
+          filters:
+            - RewritePath=/api/billing/(?<segment>.*), /billing/${segment}
+
+# Custom in-memory rate limiter (see RateLimitingFilter)
+gateway:
+  rate-limit:
+    max-requests: 5
+    window-millis: 10000

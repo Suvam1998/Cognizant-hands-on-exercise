@@ -1,0 +1,30 @@
+Hands-On 1 / Task 1 — Generated File Notes (Angular v20, standalone API)
+
+angular.json        - Workspace/build configuration: defines projects, build targets (build/serve/test),
+                       file replacements, assets, styles, and the production bundle budgets.
+tsconfig.json        - Root TypeScript config shared by the whole workspace (compiler options like
+                       strict mode, target ES version); app and spec configs extend this one.
+tsconfig.app.json    - TypeScript config specific to the browser app build; extends tsconfig.json and
+                       narrows the `files`/`include` to just the app source (excludes spec files).
+package.json         - npm manifest: project scripts (ng serve/build/test), and Angular/RxJS/zone.js
+                       dependencies plus devDependencies (CLI, TypeScript, Karma/Jasmine).
+src/main.ts          - Application entry point. Calls bootstrapApplication(App, appConfig) to start the
+                       standalone root component directly (no AppModule in Angular 20).
+src/app/app.config.ts - Replaces the old app.module.ts in standalone apps. Exports ApplicationConfig
+                       with the app-wide providers: zone change detection, global error listeners, and
+                       provideRouter(routes) for the router.
+src/app/app.ts       - The root standalone component (class `App`, selector `app-root`). Imports
+                       RouterOutlet directly in its `imports` array instead of declaring it in a module.
+src/index.html       - The single HTML page served to the browser; contains <app-root></app-root>,
+                       which is where the bootstrapped root component is rendered.
+
+Notes:
+- This project uses Angular's standalone-component API (default since Angular 17, continued in v20):
+  there is no app.module.ts — app.config.ts + main.ts do what NgModule bootstrapping used to do.
+- `ng build` output goes to dist/student-course-portal/browser/ — the compiled, bundled JS/CSS/HTML
+  that gets deployed. index.html there references hashed main.<hash>.js and styles.<hash>.css bundles.
+- angular.json production budgets (architect > build > configurations > production > budgets):
+    initial bundle: maximumWarning 500kB, maximumError 1MB — warns/fails the build if the total
+    initial JS bundle exceeds these sizes, to keep the app's first-load size in check.
+    anyComponentStyle: maximumWarning 4kB, maximumError 8kB — same idea per-component CSS file,
+    to discourage bloated component stylesheets.

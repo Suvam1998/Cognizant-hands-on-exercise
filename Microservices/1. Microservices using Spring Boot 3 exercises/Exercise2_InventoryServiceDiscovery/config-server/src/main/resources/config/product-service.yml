@@ -1,0 +1,5 @@
+# Centralized configuration for product-service (served by Config Server)
+product:
+  catalog:
+    default-currency: INR
+  message: "Product configuration loaded from Config Server"

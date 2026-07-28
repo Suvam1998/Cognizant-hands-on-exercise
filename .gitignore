@@ -1,0 +1,36 @@
+# ===== Build outputs =====
+target/
+build/
+out/
+bin/
+dist/
+*.jar
+*.war
+
+# ===== Java compiled =====
+*.class
+
+# ===== Node / Angular =====
+node_modules/
+.angular/
+npm-debug.log*
+yarn-error.log*
+
+# ===== IDE / editor =====
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+*.swp
+
+# ===== Logs / temp =====
+*.log
+app.log
+*.tmp
+
+# ===== OS generated =====
+.DS_Store
+Thumbs.db
+desktop.ini

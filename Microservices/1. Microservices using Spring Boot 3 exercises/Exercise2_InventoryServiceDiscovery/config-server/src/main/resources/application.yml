@@ -1,0 +1,14 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native            # serve config from the local filesystem/classpath
+  cloud:
+    config:
+      server:
+        native:
+          # Centralized config files for the other services live here.
+          search-locations: classpath:/config
